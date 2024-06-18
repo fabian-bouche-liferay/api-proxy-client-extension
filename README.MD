@@ -24,3 +24,6 @@ Liferay.OAuth2Client.FromUserAgentApplication(
         data => console.log(data)
     );
 ```
+
+Where `apisixhttpbin-extb5r4cxemea1-extprd.lfr.cloud` is the hostname of the
+service proxy (you can customize the domain in the cloud console configuration).
