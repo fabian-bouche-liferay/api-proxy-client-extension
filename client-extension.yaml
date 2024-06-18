@@ -1,0 +1,10 @@
+assemble:
+    - from: static
+      into: static
+httpbin-apisix-user-agent:
+    .serviceAddress: localhost:9080
+    .serviceScheme: http
+    name: Httpbin Apisix User Agent
+    scopes:
+      - liferay-json-web-services.httpbin.read
+    type: oAuthApplicationUserAgent

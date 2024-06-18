@@ -1,0 +1,41 @@
+upstreams:
+  - id: httpbin
+    pass_host: rewrite
+    upstream_host: httpbin.org
+    scheme: https
+    nodes:
+      - host: httpbin.org
+        port: 443
+        weight: 1
+routes:
+  - name: reverse-proxy-httpbin
+    uri: /
+    plugins:
+      proxy-rewrite:
+        uri: /get
+    upstream_id: httpbin
+  - name: reverse-proxy-httpbin-with-liferay-oauth
+    uri: /with-oauth
+    plugins:
+      proxy-rewrite:
+        uri: /get
+      cors:
+        allow_origins: ${{LIFERAY_DXP_URL}}
+        allow_methods: "*"
+        allow_headers: "*"
+        expose_headers: "*"
+        max_age: 3600
+        allow_credentials: true
+      openid-connect:
+        client_id: ""
+        client_secret: ""
+        discovery: ""
+        bearer_only: true
+        required_scopes:
+          - "liferay-json-web-services.httpbin.read"
+        public_key: |
+          -----BEGIN PUBLIC KEY-----
+          %{{LIFERAY_DXP_PUBLIC_KEY}}
+          -----END PUBLIC KEY-----
+    upstream_id: httpbin
+#END

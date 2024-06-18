@@ -1,0 +1,37 @@
+{
+	"cpu": 1,    
+	"env": {
+		"LIFERAY_ROUTES_CLIENT_EXTENSION": "/etc/liferay/lxc/ext-init-metadata",
+		"LIFERAY_ROUTES_DXP": "/etc/liferay/lxc/dxp-metadata" 
+	},
+	"environments": {
+		"infra": {
+			"deploy": false
+		}
+	},
+	"id": "__PROJECT_ID__",
+	"kind": "Deployment",
+	"livenessProbe": {
+		"httpGet": {
+			"path": "/",
+			"port": 9080
+		},
+        "initialDelaySeconds": 60,
+        "timeoutSeconds": 10,
+        "failureThreshold": 3
+	},
+	"loadBalancer": {
+		"targetPort": 9080
+	},
+	"memory": 1024,
+	"readinessProbe": {
+		"httpGet": {
+			"path": "/",
+			"port": 9080
+		},
+        "initialDelaySeconds": 30,
+        "timeoutSeconds": 10,
+        "failureThreshold": 3
+	},
+	"scale": 1
+}
